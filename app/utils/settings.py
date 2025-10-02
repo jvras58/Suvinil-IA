@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(
-        env_file='.env',
+        env_file=['.env', '.env-semple'],
         env_file_encoding='utf-8',
         secrets_dir='.secrets',
         case_sensitive=True,

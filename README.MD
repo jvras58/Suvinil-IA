@@ -1,12 +1,12 @@
-<h1 align="center"
+<h1 align="center">
 
-## 📝 Sobre o Projeto com FastAPI + CrewAI
+## 🎨 Suvinil IA - Sistema Inteligente de Recomendação de Tintas
 
-Este projeto é uma aplicação backend construída com **FastAPI**, projetada para gerenciar usuários, papéis, permissões e transações em um sistema baseado em **Role-Based Access Control (RBAC)**. A API suporta autenticação via JWT, autorização granular, auditoria de ações e integração com um banco de dados usando SQLAlchemy como ORM. 
+Solução inovadora para o desafio Suvinil: sistema de recomendação inteligente de tintas baseado em análise de ambiente usando IA. Backend FastAPI com agentes CrewAI que analisam descrições de ambiente (cheiro, lavabilidade, superfície, clima, preferências de cor) e recomendam produtos Suvinil ideais via RAG. Arquitetura robusta com RBAC, JWT, auditoria e observabilidade.
 </h1>
 
 <p align="center">
-   Este projeto utiliza o FastAPI para servir Agentes inteligentes utilizando o CrewAI
+   🏆 Desenvolvido para o Desafio Loomi 20205 - Transformando a experiência de escolha de tintas através de Inteligência Artificial
 </p>
 
 <p align="center">
@@ -21,15 +21,39 @@ Este projeto é uma aplicação backend construída com **FastAPI**, projetada p
 
 ---
 
-Este projeto é uma aplicação backend construída com **FastAPI**, projetada para gerenciar usuários, papéis, permissões e transações em um sistema baseado em **Role-Based Access Control (RBAC)**. A API suporta autenticação via JWT, autorização granular, auditoria de ações e integração com um banco de dados usando SQLAlchemy como ORM.
+## 🏆 Desafio Suvinil
 
-### Funcionalidades Principais
-- **Autenticação**: Login de usuários com geração de tokens JWT.
-- **Autorização**: Controle de acesso baseado em papéis e permissões.
-- **Gerenciamento de Usuários**: Criação, atualização, listagem e exclusão de usuários.
-- **Gestão de Papéis e Permissões**: Atribuição de papéis a usuários e permissões a papéis.
-- **Auditoria**: Registro de informações de auditoria (usuário, IP, data de criação/atualização).
-- **Testes Automatizados**: Suporte a testes com pytest e cobertura de código.
+**Problema**: Como ajudar consumidores a escolher a tinta ideal para suas necessidades específicas?
+
+**Solução**: Sistema IA que analisa descrições detalhadas do ambiente e necessidades do usuário:
+- 📝 **Input**: Usuário descreve ambiente (cheiro, lavabilidade, superfície, clima, preferências de cor)
+- 🤖 **Processamento**: Agentes CrewAI especializados processam a descrição usando RAG com base de conhecimento Suvinil
+- 🎯 **Output**: Recomendações justificadas de produtos Suvinil com explicação técnica
+
+**Arquitetura**: Sistema robusto com autenticação, autorização, auditoria completa e containerização.
+
+### 🎯 Funcionalidades Principais
+
+#### 🤖 Sistema de Recomendação Inteligente
+- **Análise de Ambiente**: Processamento de descrições detalhadas de ambientes usando NLP
+- **Recomendação de Produtos**: Sugestões personalizadas de tintas Suvinil baseadas em RAG
+- **Justificativas Técnicas**: Explicações detalhadas sobre por que cada produto foi recomendado
+- **Agentes Especializados**: CrewAI com agentes específicos para diferentes aspectos (cor, durabilidade, aplicação)
+
+#### 🔐 Sistema de Segurança Robusto  
+- **Autenticação JWT**: Login seguro de usuários com tokens de acesso
+- **Autorização RBAC**: Controle granular de acesso baseado em papéis e permissões
+- **Auditoria Completa**: Rastreamento de todas as interações (usuário, IP, timestamps)
+
+#### 👥 Gestão de Usuários e Permissões
+- **Gerenciamento de Usuários**: CRUD completo para usuários do sistema
+- **Gestão de Papéis**: Atribuição flexível de papéis e permissões
+- **Controle de Acesso**: Validação de permissões em tempo real
+
+#### 🧪 Qualidade e Observabilidade
+- **Testes Automatizados**: Cobertura completa com pytest
+- **Containerização**: Deploy fácil com Docker e Docker Compose
+- **Monitoramento**: Logs estruturados e métricas de desempenho
 
 O projeto é estruturado para ser modular, escalável e seguir boas práticas de desenvolvimento, como separação de responsabilidades e uso de ferramentas modernas de desenvolvimento Python.
 
@@ -37,17 +61,30 @@ O projeto é estruturado para ser modular, escalável e seguir boas práticas de
 
 ## 🚀 Tecnologias
 
-Este projeto utiliza as seguintes tecnologias e ferramentas:
+### 🤖 Stack de Inteligência Artificial
+- **[CrewAI](https://crewai.com/)**: Framework para orquestração de agentes IA especializados
+- **[LangChain](https://langchain.com/)**: Framework para desenvolvimento de aplicações com LLMs
+- **[Groq](https://groq.com/)**: Plataforma de inferência de IA com Llama 3.1 8B Instant
+- **RAG (Retrieval-Augmented Generation)**: Sistema de recuperação e geração aumentada
+- **NLP (Natural Language Processing)**: Processamento de linguagem natural para análise de texto
 
-- **Linguagem**: [Python 3.12](https://www.python.org/)
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) - Framework web para construção de APIs.
-- **ORM**: [SQLAlchemy](https://www.sqlalchemy.org/) - Mapeamento objeto-relacional.
-- **Banco de Dados**: [SQLite](https://sqlite.org/) - Banco de dados leve e embarcado.
-- **Gerenciador de Dependências**: [Uv Astral](https://docs.astral.sh/uv/) - Gerenciamento de dependências e ambientes virtuais.
-- **Migrações**: [Alembic](https://alembic.sqlalchemy.org/) - Gerenciamento de migrações de banco de dados.
-- **Testes**: [pytest](https://pytest.org/) com [pytest-cov](https://pytest-cov.readthedocs.io/) para cobertura de testes.
-- **Linting e Formatação**: [Ruff](https://github.com/charliermarsh/ruff), [Blue](https://blue.readthedocs.io/), e [isort](https://pycqa.github.io/isort/) para manter o código limpo.
-- **Autenticação**: [python-jose](https://github.com/mpdavis/python-jose) para JWT e [bcrypt](https://pypi.org/project/bcrypt/) para hash de senhas.
+### 🛠️ Stack Backend e Infraestrutura
+- **Linguagem**: [Python 3.12](https://www.python.org/) - Linguagem principal do projeto
+- **Framework Web**: [FastAPI](https://fastapi.tiangolo.com/) - API moderna e de alta performance
+- **ORM**: [SQLAlchemy](https://www.sqlalchemy.org/) - Mapeamento objeto-relacional avançado
+- **Banco de Dados**: [SQLite](https://sqlite.org/) / [PostgreSQL](https://postgresql.org/) - Flexibilidade entre desenvolvimento e produção
+
+### 🔧 Ferramentas de Desenvolvimento
+- **Gerenciador de Dependências**: [UV](https://docs.astral.sh/uv/) - Gerenciamento moderno de dependências Python
+- **Migrações**: [Alembic](https://alembic.sqlalchemy.org/) - Controle de versão de banco de dados
+- **Testes**: [pytest](https://pytest.org/) + [pytest-cov](https://pytest-cov.readthedocs.io/) - Testes automatizados com cobertura
+- **Code Quality**: [Ruff](https://github.com/charliermarsh/ruff) + [isort](https://pycqa.github.io/isort/) - Linting e formatação
+- **Containerização**: [Docker](https://docker.com/) + [Docker Compose](https://docs.docker.com/compose/) - Deploy e orquestração
+
+### 🔐 Segurança e Autenticação  
+- **JWT**: [python-jose](https://github.com/mpdavis/python-jose) - Tokens de autenticação seguros
+- **Hashing**: [bcrypt](https://pypi.org/project/bcrypt/) - Hash seguro de senhas
+- **RBAC**: Sistema próprio de controle de acesso baseado em papéis
 
 ---
 

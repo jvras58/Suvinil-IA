@@ -18,7 +18,10 @@ from app.database.session import get_session
 from app.models.user import User
 from app.utils.base_schemas import SimpleMessageSchema
 from app.utils.client_ip import get_client_ip
-from app.utils.exceptions import IntegrityValidationException, ObjectNotFoundException
+from app.utils.exceptions import (
+    IntegrityValidationException,
+    ObjectNotFoundException,
+)
 
 router = APIRouter()
 user_controller = UserController()
@@ -34,7 +37,7 @@ async def create_new_user(
     """Create a new user."""
     new_user: User = User(**user.model_dump())
     new_user.audit_user_ip = get_client_ip(request)
-    new_user.audit_user_login = "system"
+    new_user.audit_user_login = 'system'
 
     try:
         return user_controller.save(session, new_user)

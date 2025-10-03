@@ -1,7 +1,7 @@
 [project]
-name = "FastAPI-CrewAI"
+name = "FastAPI-Suvinil-IA"
 version = "0.1.0"
-description = "Basic CRUD API with FastAPI, SQLAlchemy, and Alembic, integrated with CrewAI and LangChain for advanced AI capabilities."
+description = " Agent CRUD API with FastAPI, SQLAlchemy, and Alembic, integrated with CrewAI and LangChain for advanced AI capabilities."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

@@ -1,33 +1,44 @@
-from app.api.paint.paint_enums import PaintFeature
+"""Schemas for Paint model."""
+
+from pydantic import BaseModel, ConfigDict
+
+from app.api.paint.paint_enums import (
+    Environment,
+    FinishType,
+    PaintLine,
+    SurfaceType,
+)
 
 
-#TODO: refactor para outro lugar
-def get_features_list(self) -> list[PaintFeature]:
-    """
-    Convert the features string to a list of PaintFeature enums.
-    Features are stored as comma-separated values.
-    """
-    if not self.features:
-        return []
+class PaintSchema(BaseModel):
+    """Schema for creating/updating paint."""
 
-    feature_strings = [f.strip() for f in self.features.split(',')]
-    features_list = []
+    name: str
+    color: str
+    surface_type: SurfaceType
+    environment: Environment
+    finish_type: FinishType
+    features: str | None = None
+    paint_line: PaintLine
+    created_by_user_id: int
 
-    for feature_str in feature_strings:
-        try:
-            features_list.append(PaintFeature(feature_str))
-        except ValueError:
-            # Skip invalid feature values
-            continue
 
-    return features_list
+class PaintPublic(BaseModel):
+    """Schema for public paint representation."""
 
-def set_features_list(self, features: list[PaintFeature]) -> None:
-    """
-    Set the features from a list of PaintFeature enums.
-    Features are stored as comma-separated values.
-    """
-    if not features:
-        self.features = None
-    else:
-        self.features = ','.join([feature.value for feature in features])
+    id: int
+    name: str
+    color: str
+    surface_type: SurfaceType
+    environment: Environment
+    finish_type: FinishType
+    features: str | None
+    paint_line: PaintLine
+    created_by_user_id: int
+    model_config = ConfigDict(from_attributes=True)
+
+
+class PaintList(BaseModel):
+    """Schema for listing paints."""
+
+    paints: list[PaintPublic]

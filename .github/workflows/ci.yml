@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main, develop]
 
 jobs:
   test:
@@ -23,6 +23,15 @@ jobs:
 
       - name: Install dependencies
         run: uv sync
+
+      - name: Run linting
+        run: uv run ruff check .
+
+      - name: Check code formatting
+        run: uv run blue --check . --diff
+
+      - name: Check import sorting
+        run: uv run isort --check-only --diff .
 
       - name: Run tests with coverage
         run: uv run pytest --cov=app --cov-fail-under=80

@@ -1,22 +1,22 @@
 ## Nós Iniciais (Pontos de Entrada)
 
 ### 1. **Endpoint Raiz**
-- **Localização**: `app.startup:read_root`
+- **Localização**: `apps.core.startup:read_root`
 - **Função**: Verificação básica de saúde da API
 - **Resposta**: `{'message': 'Welcome to API!'}`
 
 ### 2. **Endpoints de Autenticação**
-- **Router**: `app.api.authentication.router`
+- **Router**: `apps.core.api.authentication.router`
 - **Função**: Ponto de entrada para obtenção de tokens JWT
 - **Prefixo**: `/auth`
 
 ### 3. **Endpoints de Recursos Principais**
-- **Usuários**: `app.api.user.router` - `/users`
-- **Roles**: `app.api.role.router` - `/role`
-- **Transações**: `app.api.transaction.router` - `/transaction`
-- **Assignments**: `app.api.assignment.router` - `/assignment`
-- **Autorizações**: `app.api.authorization.router` - `/authorization`
-- **Processamento de Texto IA**: `app.api.text_processing.router` - `/text-processing`
+- **Usuários**: `apps.core.api.user.router` - `/users`
+- **Roles**: `apps.core.api.role.router` - `/role`
+- **Transações**: `apps.core.api.transaction.router` - `/transaction`
+- **Assignments**: `apps.core.api.assignment.router` - `/assignment`
+- **Autorizações**: `apps.core.api.authorization.router` - `/authorization`
+- **Processamento de Texto IA**: `apps.core.api.text_processing.router` - `/text-processing`
 
 ## Nós de Decisão (Pontos de Ramificação)
 
@@ -59,11 +59,11 @@
 ```
 User ↔ Assignment ↔ Role ↔ Authorization ↔ Transaction
 ```
-- **User**: `app.models.user.User`
-- **Assignment**: `app.models.assignment.Assignment`
-- **Role**: `app.models.role.Role`
-- **Authorization**: `app.models.authorization.Authorization`
-- **Transaction**: `app.models.transaction.Transaction`
+- **User**: `apps.core.models.user.User`
+- **Assignment**: `apps.core.models.assignment.Assignment`
+- **Role**: `apps.core.models.role.Role`
+- **Authorization**: `apps.core.models.authorization.Authorization`
+- **Transaction**: `apps.core.models.transaction.Transaction`
 
 ### 2. **Sistema de Processamento de IA**
 - **Controlador**: `TextProcessingController`

@@ -38,3 +38,9 @@ class EnumOperationCode(Enum):
     OP_1050005 = '1050005'  # Role - View
     # --------------------- Text Processing - IA ---------------------
     OP_2000001 = '2000001'  # Text Processing - Execute (CREATE)
+    # --------------------- Paint ---------------------
+    OP_1060001 = '1060001'  # Paint - Create
+    OP_1060002 = '1060002'  # Paint - Update
+    OP_1060003 = '1060003'  # Paint - List
+    OP_1060004 = '1060004'  # Paint - Delete
+    OP_1060005 = '1060005'  # Paint - View

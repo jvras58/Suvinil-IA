@@ -8,6 +8,7 @@ from app.utils.base_model import AbstractBaseModel
 
 if TYPE_CHECKING:
     from app.models.assignment import Assignment
+    from app.models.paint import Paint
     from app.models.processed_text import ProcessedText
 
 
@@ -29,6 +30,9 @@ class User(AbstractBaseModel):
     )
     processed_text_entries: Mapped[list['ProcessedText']] = relationship(
         back_populates='user', lazy='subquery'
+    )
+    created_paints: Mapped[list['Paint']] = relationship(
+        back_populates='created_by_user', lazy='subquery'
     )
     __table_args__ = (
         Index('idx_user_username', username, unique=True),

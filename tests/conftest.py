@@ -8,6 +8,7 @@ from sqlalchemy.pool import StaticPool
 from app.database.session import get_session
 from app.models.assignment import Assignment
 from app.models.authorization import Authorization
+from app.models.paint import Paint
 from app.models.role import Role
 from app.models.transaction import Transaction
 from app.models.user import User
@@ -159,6 +160,43 @@ def token(client, user):
         data={'username': user.username, 'password': user.clear_password},
     )
     return response.json()['access_token']
+
+
+@pytest.fixture
+def paint(session, user):
+    """
+    Create a Paint instance for testing.
+
+    Args:
+        session (Session): A SQLAlchemy Session instance.
+        user (User): A User instance for the created_by_user_id.
+
+    Returns:
+        Paint: A Paint instance from the system.
+    """
+    from app.api.paint.paint_enums import (
+        Environment,
+        FinishType,
+        PaintLine,
+        SurfaceType,
+    )
+
+    paint = Paint(
+        name='Tinta Teste Premium',
+        color='Azul Suvinil',
+        surface_type=SurfaceType.WOOD,
+        environment=Environment.INTERNAL,
+        finish_type=FinishType.SATIN,
+        features='Lavável, anti-mofo e resistente',
+        paint_line=PaintLine.PREMIUM,
+        created_by_user_id=user.id,
+        audit_user_ip='127.0.0.1',
+        audit_user_login='tester',
+    )
+    session.add(paint)
+    session.commit()
+    session.refresh(paint)
+    return paint
 
 
 @pytest.fixture

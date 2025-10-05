@@ -6,6 +6,7 @@ from app.api.assignment.router import router as assignment_router
 from app.api.authentication.router import router as auth_router
 from app.api.authorization.middleware import AuthorizationMiddleware
 from app.api.authorization.router import router as authorization_router
+from app.api.paint.router import router as paint_router
 from app.api.role.router import router as role_router
 from app.api.text_processing.router import router as text_processing_router
 from app.api.transaction.router import router as transaction_router
@@ -46,6 +47,10 @@ app = FastAPI(
         {
             'name': 'Data Processing',
             'description': 'Operations with data processing using AI',
+        },
+        {
+            'name': 'Paints',
+            'description': 'Operations with paint management',
         },
     ],
 )
@@ -88,6 +93,7 @@ app.include_router(
 app.include_router(
     text_processing_router, prefix='/text-processing', tags=['Text Processing']
 )
+app.include_router(paint_router, prefix='/paints', tags=['Paints'])
 # ----------------------------------
 
 

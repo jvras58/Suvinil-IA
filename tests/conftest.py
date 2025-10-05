@@ -165,7 +165,7 @@ def token(client, user):
 @pytest.fixture
 def paint(session, user):
     """
-    Create a Paint ingestion for testing.
+    Create a Paint instance for testing.
 
     Args:
         session (Session): A SQLAlchemy Session instance.

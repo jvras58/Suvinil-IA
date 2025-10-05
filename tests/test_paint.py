@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from sqlalchemy import select
 
-from app.models.paint import Paint
+from apps.core.models.paint import Paint
 from tests.factory.paint_factory import PaintFactory
 
 

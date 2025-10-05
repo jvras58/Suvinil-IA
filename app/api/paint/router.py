@@ -28,9 +28,12 @@ DbSession = Annotated[Session, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
-@router.post("/", status_code=201, response_model=PaintPublic)
+@router.post('/', status_code=201, response_model=PaintPublic)
 async def create_new_paint(
-    paint: PaintSchema, request: Request, session: DbSession, current_user: CurrentUser
+    paint: PaintSchema,
+    request: Request,
+    session: DbSession,
+    current_user: CurrentUser,
 ):
     """Create a new paint."""
     validate_transaction_access(session, current_user, op.OP_1060001.value)
@@ -44,16 +47,18 @@ async def create_new_paint(
     except IntegrityValidationException as ex:
         raise HTTPException(
             status_code=HTTP_STATUS.HTTP_400_BAD_REQUEST,
-            detail="Object PAINT was not accepted",
+            detail='Object PAINT was not accepted',
         ) from ex
 
 
 @router.get(
-    "/{paint_id}",
+    '/{paint_id}',
     status_code=HTTP_STATUS.HTTP_200_OK,
     response_model=PaintPublic,
 )
-def get_paint_by_id(paint_id: int, db_session: DbSession, current_user: CurrentUser):
+def get_paint_by_id(
+    paint_id: int, db_session: DbSession, current_user: CurrentUser
+):
     """Get paint by ID."""
     validate_transaction_access(db_session, current_user, op.OP_1060005.value)
 
@@ -63,7 +68,7 @@ def get_paint_by_id(paint_id: int, db_session: DbSession, current_user: CurrentU
         raise HTTPException(status_code=404, detail=ex.args[0]) from ex
 
 
-@router.get("/", response_model=PaintList)
+@router.get('/', response_model=PaintList)
 def read_paints(
     db_session: DbSession,
     current_user: CurrentUser,
@@ -73,10 +78,10 @@ def read_paints(
     """Retrieve all paints with pagination."""
     validate_transaction_access(db_session, current_user, op.OP_1060003.value)
     paints: list[Paint] = paint_controller.get_all(db_session, skip, limit)
-    return {"paints": paints}
+    return {'paints': paints}
 
 
-@router.put("/{paint_id}", response_model=PaintPublic)
+@router.put('/{paint_id}', response_model=PaintPublic)
 def update_existing_paint(
     paint_id: int,
     paint: PaintSchema,
@@ -99,7 +104,7 @@ def update_existing_paint(
         raise HTTPException(status_code=404, detail=ex.args[0]) from ex
 
 
-@router.delete("/{paint_id}", response_model=SimpleMessageSchema)
+@router.delete('/{paint_id}', response_model=SimpleMessageSchema)
 def delete_existing_paint(
     paint_id: int,
     db_session: DbSession,
@@ -113,4 +118,4 @@ def delete_existing_paint(
     except ObjectNotFoundException as ex:
         raise HTTPException(status_code=404, detail=ex.args[0]) from ex
 
-    return {"detail": "Paint deleted"}
+    return {'detail': 'Paint deleted'}

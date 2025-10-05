@@ -133,7 +133,9 @@ def test_get_paint_by_id(client, paint, token):
         assert response.json()['finish_type'] == paint.finish_type.value
         assert response.json()['features'] == paint.features
         assert response.json()['paint_line'] == paint.paint_line.value
-        assert response.json()['created_by_user_id'] == paint.created_by_user_id
+        assert (
+            response.json()['created_by_user_id'] == paint.created_by_user_id
+        )
         assert mocked_access_validation.assert_called_once
 
 
@@ -151,7 +153,7 @@ def test_read_paints_with_paints(client, paint, token):
     # Verifica se a tinta específica está na lista
     paints_in_response = response.json()['paints']
     paint_found = any(p['id'] == paint.id for p in paints_in_response)
-    assert paint_found, f"Paint with id {paint.id} not found in response"
+    assert paint_found, f'Paint with id {paint.id} not found in response'
 
     assert mocked_access_validation.assert_called_once
 

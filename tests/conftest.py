@@ -182,16 +182,16 @@ def paint(session, user):
     )
 
     paint = Paint(
-        name="Tinta Teste Premium",
-        color="Azul Suvinil",
+        name='Tinta Teste Premium',
+        color='Azul Suvinil',
         surface_type=SurfaceType.WOOD,
         environment=Environment.INTERNAL,
         finish_type=FinishType.SATIN,
-        features="Lavável, anti-mofo e resistente",
+        features='Lavável, anti-mofo e resistente',
         paint_line=PaintLine.PREMIUM,
         created_by_user_id=user.id,
-        audit_user_ip="127.0.0.1",
-        audit_user_login="tester",
+        audit_user_ip='127.0.0.1',
+        audit_user_login='tester',
     )
     session.add(paint)
     session.commit()

@@ -26,13 +26,15 @@ if config.config_file_name is not None:
 from app.utils.base_model import Base
 
 app_models = [
-    'app.models.user',
-    'app.models.role',
-    'app.models.transaction',
-    'app.models.assignment',
-    'app.models.authorization',
-    'app.models.processed_text',
-    'app.models.paint',
+    'apps.core.models.user',
+    'apps.core.models.role',
+    'apps.core.models.transaction',
+    'apps.core.models.assignment',
+    'apps.core.models.authorization',
+    'apps.core.models.paint',
+    'apps.ia.models.conversation',
+    'apps.ia.models.message',
+    'apps.ia.models.document',
 ]
 
 for module in app_models:

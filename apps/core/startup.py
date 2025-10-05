@@ -1,6 +1,4 @@
 """Application startup and configuration."""
-# from apps.ia.api.chat.router import router as chat_router
-# from apps.ia.api.documents.router import router as documents_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,6 +10,8 @@ from apps.core.api.paint.router import router as paint_router
 from apps.core.api.role.router import router as role_router
 from apps.core.api.transaction.router import router as transaction_router
 from apps.core.api.user.router import router as user_router
+from apps.ia.api.chat.router import router as chat_router
+from apps.ia.api.documents.router import router as documents_router
 
 app = FastAPI(
     title="FastAPI Suvinil-IA",
@@ -96,8 +96,8 @@ app.include_router(
     authorization_router, prefix='/authorization', tags=['Authorizations']
 )
 app.include_router(paint_router, prefix="/paints", tags=["Paints"])
-# app.include_router(chat_router, prefix='/ia', tags=['AI Chat'])
-# app.include_router(documents_router, prefix='/ia', tags=['AI Documents'])
+app.include_router(chat_router, prefix="/ia", tags=["AI Chat"])
+app.include_router(documents_router, prefix="/ia", tags=["AI Documents"])
 # ----------------------------------
 
 

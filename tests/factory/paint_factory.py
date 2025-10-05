@@ -1,12 +1,12 @@
 import factory
 
-from app.api.paint.paint_enums import (
+from apps.core.api.paint.paint_enums import (
     Environment,
     FinishType,
     PaintLine,
     SurfaceType,
 )
-from app.models.paint import Paint
+from apps.core.models.paint import Paint
 
 
 class PaintFactory(factory.Factory):

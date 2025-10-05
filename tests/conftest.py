@@ -1,20 +1,28 @@
 """Fixture and environment configurations for testing."""
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from app.database.session import get_session
-from app.models.assignment import Assignment
-from app.models.authorization import Authorization
-from app.models.paint import Paint
-from app.models.role import Role
-from app.models.transaction import Transaction
-from app.models.user import User
-from app.startup import app
-from app.utils.base_model import Base
-from app.utils.security import get_password_hash
+from apps.core.api.paint.paint_enums import (
+    Environment,
+    FinishType,
+    PaintLine,
+    SurfaceType,
+)
+from apps.core.database.session import get_session
+from apps.core.models.assignment import Assignment
+from apps.core.models.authorization import Authorization
+from apps.core.models.paint import Paint
+from apps.core.models.role import Role
+from apps.core.models.transaction import Transaction
+from apps.core.models.user import User
+from apps.core.startup import app
+from apps.core.utils.security import get_password_hash
+from apps.packpage.base_model import Base
 from tests.factory.assignment_factory import (
     AssignmentFactory,
     create_assignment,
@@ -26,6 +34,10 @@ from tests.factory.authorization_factory import (
 from tests.factory.role_factory import RoleFactory
 from tests.factory.trasaction_factory import TransactonFactory
 from tests.factory.user_factory import UserFactory
+
+os.environ.setdefault("CREWAI_DISABLE_TRACING", "true")
+os.environ.setdefault("CREWAI_LOG_LEVEL", "ERROR")
+os.environ.setdefault("OTEL_SDK_DISABLED", "true")
 
 
 @pytest.fixture
@@ -174,12 +186,6 @@ def paint(session, user):
     Returns:
         Paint: A Paint instance from the system.
     """
-    from app.api.paint.paint_enums import (
-        Environment,
-        FinishType,
-        PaintLine,
-        SurfaceType,
-    )
 
     paint = Paint(
         name='Tinta Teste Premium',

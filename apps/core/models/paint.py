@@ -1,7 +1,6 @@
 """Model for Paint (Tinta)."""
 from typing import TYPE_CHECKING
 
-from apps.packpage.base_model import AbstractBaseModel
 from sqlalchemy import Enum, ForeignKey, Index, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -11,9 +10,10 @@ from apps.core.api.paint.paint_enums import (
     PaintLine,
     SurfaceType,
 )
+from apps.packpage.base_model import AbstractBaseModel
 
 if TYPE_CHECKING:
-    from app.models.user import User
+    from apps.core.models.user import User
 
 
 class Paint(AbstractBaseModel):
@@ -45,8 +45,8 @@ class Paint(AbstractBaseModel):
         ForeignKey('user.id'), name='created_by_user_id', nullable=False
     )
 
-    created_by_user: Mapped['User'] = relationship(
-        back_populates='created_paints', lazy='subquery'
+    created_by_user: Mapped["User"] = relationship(
+        back_populates="paints", lazy="subquery"
     )
 
     __table_args__ = (

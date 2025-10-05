@@ -12,6 +12,6 @@ from apps.core.models.paint import Paint  # noqa F401
 from apps.core.models.role import Role  # noqa F401
 from apps.core.models.transaction import Transaction  # noqa F401
 from apps.core.models.user import User  # noqa F401
-from apps.ia.models.conversation import Conversation  # noqa F401
-from apps.ia.models.document import Document  # noqa F401
-from apps.ia.models.message import Message  # noqa F401
+# from apps.ia.models.conversation import Conversation  # noqa F401
+# from apps.ia.models.document import Document  # noqa F401
+# from apps.ia.models.message import Message  # noqa F401

@@ -1,6 +1,6 @@
 """Application startup and configuration."""
-from apps.ia.api.chat.router import router as chat_router
-from apps.ia.api.documents.router import router as documents_router
+# from apps.ia.api.chat.router import router as chat_router
+# from apps.ia.api.documents.router import router as documents_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -96,8 +96,8 @@ app.include_router(
     authorization_router, prefix='/authorization', tags=['Authorizations']
 )
 app.include_router(paint_router, prefix="/paints", tags=["Paints"])
-app.include_router(chat_router, prefix='/ia', tags=['AI Chat'])
-app.include_router(documents_router, prefix='/ia', tags=['AI Documents'])
+# app.include_router(chat_router, prefix='/ia', tags=['AI Chat'])
+# app.include_router(documents_router, prefix='/ia', tags=['AI Documents'])
 # ----------------------------------
 
 

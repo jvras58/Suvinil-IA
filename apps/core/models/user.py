@@ -28,8 +28,8 @@ class User(AbstractBaseModel):
     assignments: Mapped[list['Assignment']] = relationship(
         back_populates='user', lazy='subquery'
     )
-    conversations: Mapped[list["Conversation"]] = relationship(
-        "Conversation", back_populates="user", lazy="select"
+    conversations: Mapped[list['Conversation']] = relationship(
+        'Conversation', back_populates='user', lazy='select'
     )
     paints: Mapped[list['Paint']] = relationship(
         'Paint', back_populates='created_by_user', lazy='subquery'

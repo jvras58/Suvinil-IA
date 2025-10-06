@@ -45,8 +45,8 @@ class Paint(AbstractBaseModel):
         ForeignKey('user.id'), name='created_by_user_id', nullable=False
     )
 
-    created_by_user: Mapped["User"] = relationship(
-        back_populates="paints", lazy="subquery"
+    created_by_user: Mapped['User'] = relationship(
+        back_populates='paints', lazy='subquery'
     )
 
     __table_args__ = (

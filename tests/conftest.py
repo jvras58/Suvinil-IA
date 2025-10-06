@@ -41,9 +41,9 @@ from tests.factory.trasaction_factory import TransactonFactory
 from tests.factory.user_factory import UserFactory
 from tests.mock.mock_embeddings import MockEmbeddings
 
-os.environ.setdefault("CREWAI_DISABLE_TRACING", "true")
-os.environ.setdefault("CREWAI_LOG_LEVEL", "ERROR")
-os.environ.setdefault("OTEL_SDK_DISABLED", "true")
+os.environ.setdefault('CREWAI_DISABLE_TRACING', 'true')
+os.environ.setdefault('CREWAI_LOG_LEVEL', 'ERROR')
+os.environ.setdefault('OTEL_SDK_DISABLED', 'true')
 
 
 @pytest.fixture
@@ -76,8 +76,8 @@ def session():
         Session: A SQLAlchemy Session instance
     """
     engine = create_engine(
-        "sqlite:///:memory:",
-        connect_args={"check_same_thread": False},
+        'sqlite:///:memory:',
+        connect_args={'check_same_thread': False},
         poolclass=StaticPool,
         # echo=True,
     )
@@ -88,7 +88,7 @@ def session():
     Base.metadata.drop_all(engine)
 
 
-@event.listens_for(Engine, "connect")
+@event.listens_for(Engine, 'connect')
 def set_sqlite_pragma(dbapi_connection, _connection_record):
     """
     Defines the foreign keys pragma for SQLite database connections.
@@ -98,7 +98,7 @@ def set_sqlite_pragma(dbapi_connection, _connection_record):
         _connection_record: The connection record object.
     """
     cursor = dbapi_connection.cursor()
-    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.execute('PRAGMA foreign_keys=ON')
     cursor.close()
 
 
@@ -113,14 +113,14 @@ def user(session):
     Returns:
         User: A User instance from the system.
     """
-    clr_password = "testtest"
+    clr_password = 'testtest'
     user = User(
-        username="Teste",
-        display_name="User Teste",
-        email="teste@test.com",
+        username='Teste',
+        display_name='User Teste',
+        email='teste@test.com',
         password=get_password_hash(clr_password),
-        audit_user_ip="0.0.0.0",
-        audit_user_login="tester",
+        audit_user_ip='0.0.0.0',
+        audit_user_login='tester',
     )
     session.add(user)
     session.commit()
@@ -141,14 +141,14 @@ def other_user(session):
     Returns:
         User: A User instance from the system.
     """
-    clr_password = "Qwert123"
+    clr_password = 'Qwert123'
     user = User(
-        username="TesteOutro",
-        email="teste_outro@test.com",
-        display_name="User Teste Outro",
+        username='TesteOutro',
+        email='teste_outro@test.com',
+        display_name='User Teste Outro',
         password=get_password_hash(clr_password),
-        audit_user_ip="0.0.0.0",
-        audit_user_login="tester",
+        audit_user_ip='0.0.0.0',
+        audit_user_login='tester',
     )
     session.add(user)
     session.commit()
@@ -174,8 +174,8 @@ def user_10(session):
 @pytest.fixture
 def token(client, user):
     response = client.post(
-        "/auth/token",
-        data={"username": user.username, "password": user.clear_password},
+        '/auth/token',
+        data={'username': user.username, 'password': user.clear_password},
     )
     return response.json()['access_token']
 
@@ -335,11 +335,11 @@ def authorization_10_plus_one(session, role, transaction_10_plus_one):
 def conversation(session, user):
     """Create a test conversation."""
     conversation = Conversation(
-        str_title="Conversa de Teste",
-        str_description="Uma conversa para testes",
+        str_title='Conversa de Teste',
+        str_description='Uma conversa para testes',
         user_id=user.id,
-        str_status="active",
-        audit_user_ip="127.0.0.1",
+        str_status='active',
+        audit_user_ip='127.0.0.1',
         audit_user_login=user.username,
     )
     session.add(conversation)
@@ -352,11 +352,11 @@ def conversation(session, user):
 def conversation_with_messages(session, user):
     """Create a conversation with several messages for testing."""
     conversation = Conversation(
-        str_title="Conversa com Mensagens",
-        str_description="Conversa com múltiplas mensagens",
+        str_title='Conversa com Mensagens',
+        str_description='Conversa com múltiplas mensagens',
         user_id=user.id,
-        str_status="active",
-        audit_user_ip="127.0.0.1",
+        str_status='active',
+        audit_user_ip='127.0.0.1',
         audit_user_login=user.username,
     )
     session.add(conversation)
@@ -364,27 +364,27 @@ def conversation_with_messages(session, user):
 
     messages = [
         Message(
-            txt_content="Primeira mensagem do usuário",
-            str_role="user",
+            txt_content='Primeira mensagem do usuário',
+            str_role='user',
             conversation_id=conversation.id,
-            str_status="active",
-            audit_user_ip="127.0.0.1",
+            str_status='active',
+            audit_user_ip='127.0.0.1',
             audit_user_login=user.username,
         ),
         Message(
-            txt_content="Resposta do assistente",
-            str_role="assistant",
+            txt_content='Resposta do assistente',
+            str_role='assistant',
             conversation_id=conversation.id,
-            str_status="active",
-            audit_user_ip="127.0.0.1",
+            str_status='active',
+            audit_user_ip='127.0.0.1',
             audit_user_login=user.username,
         ),
         Message(
-            txt_content="Segunda mensagem do usuário",
-            str_role="user",
+            txt_content='Segunda mensagem do usuário',
+            str_role='user',
             conversation_id=conversation.id,
-            str_status="active",
-            audit_user_ip="127.0.0.1",
+            str_status='active',
+            audit_user_ip='127.0.0.1',
             audit_user_login=user.username,
         ),
     ]
@@ -398,19 +398,19 @@ def conversation_with_messages(session, user):
 @pytest.fixture
 def document(session, user):
     """Create a test document."""
-    content = "Este é um documento de teste para o sistema de RAG."
-    content_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()
+    content = 'Este é um documento de teste para o sistema de RAG.'
+    content_hash = hashlib.sha256(content.encode('utf-8')).hexdigest()
 
     document = Document(
-        str_title="Documento de Teste",
-        str_filename="teste.txt",
+        str_title='Documento de Teste',
+        str_filename='teste.txt',
         txt_content=content,
-        str_content_type="text/plain",
+        str_content_type='text/plain',
         json_metadata='{"source": "test", "category": "example"}',
-        int_size_bytes=len(content.encode("utf-8")),
+        int_size_bytes=len(content.encode('utf-8')),
         str_content_hash=content_hash,
-        str_status="active",
-        audit_user_ip="127.0.0.1",
+        str_status='active',
+        audit_user_ip='127.0.0.1',
         audit_user_login=user.username,
     )
     session.add(document)
@@ -425,11 +425,11 @@ def multiple_conversations(session, user):
     conversations = []
     for i in range(15):
         conversation = Conversation(
-            str_title=f"Conversa {i + 1}",
-            str_description=f"Descrição da conversa {i + 1}",
+            str_title=f'Conversa {i + 1}',
+            str_description=f'Descrição da conversa {i + 1}',
             user_id=user.id,
-            str_status="active" if i % 2 == 0 else "archived",
-            audit_user_ip="127.0.0.1",
+            str_status='active' if i % 2 == 0 else 'archived',
+            audit_user_ip='127.0.0.1',
             audit_user_login=user.username,
         )
         conversations.append(conversation)
@@ -445,15 +445,15 @@ def multiple_documents(session, user):
     documents = []
     for i in range(10):
         document = Document(
-            str_title=f"Documento {i + 1}",
-            str_filename=f"doc_{i + 1}.txt",
-            txt_content=f"Conteúdo do documento {i + 1} com informações importantes.",
-            str_content_type="text/plain",
+            str_title=f'Documento {i + 1}',
+            str_filename=f'doc_{i + 1}.txt',
+            txt_content=f'Conteúdo do documento {i + 1} com informações importantes.',
+            str_content_type='text/plain',
             json_metadata=f'{{"source": "test", "index": {i + 1}}}',
-            int_size_bytes=len(f"Conteúdo do documento {i + 1}"),
-            str_content_hash=f"hash{i + 1}",
-            str_status="active",
-            audit_user_ip="127.0.0.1",
+            int_size_bytes=len(f'Conteúdo do documento {i + 1}'),
+            str_content_hash=f'hash{i + 1}',
+            str_status='active',
+            audit_user_ip='127.0.0.1',
             audit_user_login=user.username,
         )
         documents.append(document)
@@ -467,7 +467,7 @@ def multiple_documents(session, user):
 def mock_rag_embeddings():
     """Mock embeddings for RAG tests that don't call external APIs."""
     with patch(
-        "apps.ia.services.rag_service.RAGService._setup_embeddings"
+        'apps.ia.services.rag_service.RAGService._setup_embeddings'
     ) as mock_setup:
         mock_setup.return_value = MockEmbeddings()
         yield

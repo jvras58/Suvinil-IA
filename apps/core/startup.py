@@ -14,48 +14,48 @@ from apps.ia.api.chat.router import router as chat_router
 from apps.ia.api.documents.router import router as documents_router
 
 app = FastAPI(
-    title="FastAPI Suvinil-IA",
-    description="FastAPI application for Suvinil-IA project",
-    version="0.1.0",
-    openapi_url="/api/v1/openapi.json",
-    docs_url="/api/v1/docs",
-    redoc_url="/api/v1/redoc",
+    title='FastAPI Suvinil-IA',
+    description='FastAPI application for Suvinil-IA project',
+    version='0.1.0',
+    openapi_url='/api/v1/openapi.json',
+    docs_url='/api/v1/docs',
+    redoc_url='/api/v1/redoc',
     openapi_tags=[
         {
-            "name": "Users",
-            "description": "Operations with users",
+            'name': 'Users',
+            'description': 'Operations with users',
         },
         {
-            "name": "Auth",
-            "description": "Operations with authentication",
+            'name': 'Auth',
+            'description': 'Operations with authentication',
         },
         {
-            "name": "Transactions",
-            "description": "Operations with transactions",
+            'name': 'Transactions',
+            'description': 'Operations with transactions',
         },
         {
-            "name": "Roles",
-            "description": "Operations with roles",
+            'name': 'Roles',
+            'description': 'Operations with roles',
         },
         {
-            "name": "Assignments",
-            "description": "Operations with assignments",
+            'name': 'Assignments',
+            'description': 'Operations with assignments',
         },
         {
-            "name": "Authorizations",
-            "description": "Operations with authorizations",
+            'name': 'Authorizations',
+            'description': 'Operations with authorizations',
         },
         {
-            "name": "Paints",
-            "description": "Operations with paint management",
+            'name': 'Paints',
+            'description': 'Operations with paint management',
         },
         {
-            "name": "AI Chat",
-            "description": "Operations with AI chat and conversation management",
+            'name': 'AI Chat',
+            'description': 'Operations with AI chat and conversation management',
         },
         {
-            "name": "AI Documents",
-            "description": "Operations with AI document management and RAG",
+            'name': 'AI Documents',
+            'description': 'Operations with AI document management and RAG',
         },
     ],
 )
@@ -95,9 +95,9 @@ app.include_router(
 app.include_router(
     authorization_router, prefix='/authorization', tags=['Authorizations']
 )
-app.include_router(paint_router, prefix="/paints", tags=["Paints"])
-app.include_router(chat_router, prefix="/ia", tags=["AI Chat"])
-app.include_router(documents_router, prefix="/ia", tags=["AI Documents"])
+app.include_router(paint_router, prefix='/paints', tags=['Paints'])
+app.include_router(chat_router, prefix='/ia', tags=['AI Chat'])
+app.include_router(documents_router, prefix='/ia', tags=['AI Documents'])
 # ----------------------------------
 
 

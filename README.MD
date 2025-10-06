@@ -206,8 +206,8 @@ Siga os passos abaixo para configurar e executar o projeto localmente.
 
 ### 1. Clonar o Repositório
 ```bash
-git clone https://github.com/jvras58/fastapi-crewai
-cd fastapi-crewai
+git clone <Este Repositorio>
+cd <Este Reposorio>
 ```
 
 ## 2.1 Montando o ambiente
@@ -278,7 +278,14 @@ b) Suba os seedings de RBAC e de usuario admin
 task setup_db
 ```
 
-### 5. Executar a API
+### 5. Usuario para teste
+
+```bash
+  usuario: admin
+  senha: admin123
+```
+
+### 6. Executar a API
 Inicie o servidor FastAPI com o comando:
 ```bash
 task run
@@ -289,7 +296,7 @@ A API estará disponível em:
 - **Documentação Interativa**: [http://localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs) (Swagger UI)
 - **Documentação Alternativa**: [http://localhost:8000/api/v1/redoc](http://localhost:8000/api/v1/redoc) (ReDoc)
 
-### 6. Executar Testes
+### 7. Executar Testes
 Para rodar os testes automatizados e verificar a cobertura:
 ```bash
 task test

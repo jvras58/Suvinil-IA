@@ -1,6 +1,7 @@
 """Settings management for the application using Pydantic."""
 from functools import lru_cache
 
+from langchain_groq import ChatGroq
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,12 +20,16 @@ class Settings(BaseSettings):
 
     DB_URL: str
     GROQ_API_KEY: str
-    GOOGLE_API_KEY: str | None = None
+    GROQ_MODEL: str = 'llama3-70b-8192'
     SECURITY_ALGORITHM: str = 'HS256'
     SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # SECRETS
     SECURITY_API_SECRET_KEY: str
+
+    @property
+    def llm(self):
+        return ChatGroq(model=self.GROQ_MODEL, api_key=self.GROQ_API_KEY)
 
 
 @lru_cache

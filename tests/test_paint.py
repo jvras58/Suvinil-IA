@@ -48,7 +48,7 @@ def test_create_paint(session, user):
 
 def test_create_paint_success(client, user, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.post(
             '/paints/',
@@ -81,7 +81,7 @@ def test_create_paint_success(client, user, token):
 def test_create_paint_duplicate_success(client, paint, user, token):
     """Test that duplicate paints can be created (no unique constraint)."""
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.post(
             '/paints/',
@@ -106,7 +106,7 @@ def test_create_paint_duplicate_success(client, paint, user, token):
 
 def test_read_paints(client, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.get(
             '/paints/', headers={'Authorization': f'Bearer {token}'}
@@ -118,7 +118,7 @@ def test_read_paints(client, token):
 
 def test_get_paint_by_id(client, paint, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.get(
             f'/paints/{paint.id}',
@@ -141,7 +141,7 @@ def test_get_paint_by_id(client, paint, token):
 
 def test_read_paints_with_paints(client, paint, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.get(
             '/paints/', headers={'Authorization': f'Bearer {token}'}
@@ -160,7 +160,7 @@ def test_read_paints_with_paints(client, paint, token):
 
 def test_update_paint_success(client, paint, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.put(
             f'/paints/{paint.id}',
@@ -211,7 +211,7 @@ def test_update_paint_fail(client, paint):
 
 def test_delete_paint_success(client, paint, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.delete(
             f'/paints/{paint.id}',
@@ -232,7 +232,7 @@ def test_delete_paint_fail(client):
 
 def test_get_paint_not_found(client, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.get(
             '/paints/999',
@@ -245,7 +245,7 @@ def test_get_paint_not_found(client, token):
 
 def test_update_paint_not_found(client, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.put(
             '/paints/999',
@@ -269,7 +269,7 @@ def test_update_paint_not_found(client, token):
 
 def test_delete_paint_not_found(client, token):
     with patch(
-        "apps.core.api.paint.router.validate_transaction_access"
+        'apps.core.api.paint.router.validate_transaction_access'
     ) as mocked_access_validation:
         response = client.delete(
             '/paints/999',

@@ -1,7 +1,7 @@
 """Seed Transactions Module."""
-from app.api.transaction.enum_operation_code import EnumOperationCode
-from app.database.session import get_session
-from app.models.transaction import Transaction
+from apps.core.api.transaction.enum_operation_code import EnumOperationCode
+from apps.core.database.session import get_session
+from apps.core.models.transaction import Transaction
 
 
 def seed_transactions():
@@ -192,9 +192,128 @@ def seed_transactions():
                 'audit_user_login': 'system',
             },
             {
-                'operation_code': EnumOperationCode.OP_2000001.value,
-                'name': 'Data Processing - Execute',
-                'description': 'Perform data processing with AI',
+                'operation_code': EnumOperationCode.OP_1060006.value,
+                'name': 'Conversation - Chat Message',
+                'description': 'Send a chat message in a Conversation',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1060001.value,
+                'name': 'Conversation - Create',
+                'description': 'Create a new Conversation',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1060002.value,
+                'name': 'Conversation - Update',
+                'description': 'Update a existent Conversation',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1060003.value,
+                'name': 'Conversation - List',
+                'description': 'List and search for Conversations',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1060004.value,
+                'name': 'Conversation - Delete',
+                'description': 'Delete a existent Conversation',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1060005.value,
+                'name': 'Conversation - View',
+                'description': 'Get a existent Conversation',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070001.value,
+                'name': 'Document - Create',
+                'description': 'Create a new Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070002.value,
+                'name': 'Document - Update',
+                'description': 'Update a existent Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070003.value,
+                'name': 'Document - List',
+                'description': 'List and search for Documents',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070004.value,
+                'name': 'Document - Delete',
+                'description': 'Delete a existent Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070005.value,
+                'name': 'Document - View',
+                'description': 'Get a existent Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070006.value,
+                'name': 'Search Base - via Document',
+                'description': 'Search base information using a Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1070007.value,
+                'name': 'Search Content - via Document',
+                'description': 'Search content information using a Document',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1080001.value,
+                'name': 'Paint - Create',
+                'description': 'Create a new Paint',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1080002.value,
+                'name': 'Paint - Update',
+                'description': 'Update a existent Paint',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1080003.value,
+                'name': 'Paint - List',
+                'description': 'List and search for Paints',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1080004.value,
+                'name': 'Paint - Delete',
+                'description': 'Delete a existent Paint',
+                'audit_user_ip': '0.0.0.0',
+                'audit_user_login': 'system',
+            },
+            {
+                'operation_code': EnumOperationCode.OP_1080005.value,
+                'name': 'Paint - View',
+                'description': 'Get a existent Paint',
                 'audit_user_ip': '0.0.0.0',
                 'audit_user_login': 'system',
             },

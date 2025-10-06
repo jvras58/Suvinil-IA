@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     DB_URL: str
     GROQ_API_KEY: str
-    GROQ_MODEL: str = "llama3-70b-8192"
+    GROQ_MODEL: str = 'llama3-70b-8192'
     SECURITY_ALGORITHM: str = 'HS256'
     SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 

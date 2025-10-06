@@ -38,24 +38,28 @@ def db_query_tool(query: str) -> str:
         if result:
             return str(result)
         else:
-            return "Nenhum resultado encontrado."
+            return 'Nenhum resultado encontrado.'
 
     except Exception as e:
         error_msg = str(e)
 
         suggestions = _get_error_suggestions(error_msg, query, inspector)
 
-        return f"Erro ao executar query: {error_msg}\n\n{suggestions}"
+        return f'Erro ao executar query: {error_msg}\n\n{suggestions}'
     finally:
         engine.dispose()
 
 
 def _validate_query(query: str, inspector) -> str:
     """Valida a query antes da execução e fornece sugestões."""
-    table_pattern = r"\bFROM\s+(\w+)|\bJOIN\s+(\w+)|\bINTO\s+(\w+)|\bUPDATE\s+(\w+)"
+    table_pattern = (
+        r'\bFROM\s+(\w+)|\bJOIN\s+(\w+)|\bINTO\s+(\w+)|\bUPDATE\s+(\w+)'
+    )
     matches = re.findall(table_pattern, query, re.IGNORECASE)
 
-    referenced_tables = [table for match in matches for table in match if table]
+    referenced_tables = [
+        table for match in matches for table in match if table
+    ]
 
     if not referenced_tables:
         return None
@@ -105,38 +109,42 @@ def _get_error_suggestions(error_msg: str, query: str, inspector) -> str:
     """Fornece sugestões específicas baseadas no tipo de erro."""
     suggestions = []
 
-    if "no such table" in error_msg.lower():
-        table_match = re.search(r"no such table: (\w+)", error_msg, re.IGNORECASE)
+    if 'no such table' in error_msg.lower():
+        table_match = re.search(
+            r'no such table: (\w+)', error_msg, re.IGNORECASE
+        )
         if table_match:
             table_name = table_match.group(1)
             existing_tables = inspector.get_table_names()
-            similar_suggestion = _suggest_similar_tables(table_name, existing_tables)
-            suggestions.append(f"SUGESTÃO: {similar_suggestion}")
+            similar_suggestion = _suggest_similar_tables(
+                table_name, existing_tables
+            )
+            suggestions.append(f'SUGESTÃO: {similar_suggestion}')
 
-    elif "no such column" in error_msg.lower():
+    elif 'no such column' in error_msg.lower():
         suggestions.append(
             'SUGESTÃO: Use a ferramenta "db_schema_inspector" '
-            "para ver as colunas disponíveis na tabela."
+            'para ver as colunas disponíveis na tabela.'
         )
 
-    elif "syntax error" in error_msg.lower():
+    elif 'syntax error' in error_msg.lower():
         suggestions.append(
-            "SUGESTÃO: Verifique a sintaxe SQL. "
+            'SUGESTÃO: Verifique a sintaxe SQL. '
             'Use a ferramenta "db_paint_query_helper" '
-            "para ver exemplos de queries válidas."
+            'para ver exemplos de queries válidas.'
         )
 
-    if "paint" in query.lower() or "tinta" in query.lower():
+    if 'paint' in query.lower() or 'tinta' in query.lower():
         suggestions.append(
             'DICA: Para consultar tintas, use a tabela "paint". '
             'Execute "db_paint_query_helper" para ver exemplos '
-            "de queries e valores válidos para os campos enum."
+            'de queries e valores válidos para os campos enum.'
         )
 
     if suggestions:
-        return "\n".join(suggestions)
+        return '\n'.join(suggestions)
     else:
         return (
             'SUGESTÃO: Use "db_schema_inspector" para descobrir '
-            "a estrutura das tabelas disponíveis."
+            'a estrutura das tabelas disponíveis.'
         )

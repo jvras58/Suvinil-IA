@@ -39,8 +39,12 @@ def db_schema_inspector(table_name: str = None) -> str:
             result += 'COLUNAS:\n'
             for col in columns:
                 nullable = '' if col['nullable'] else ' NOT NULL'
-                default = f" DEFAULT {col['default']}" if col.get('default') else ''
-                result += f'  - {col["name"]}: {col["type"]}{nullable}{default}\n'
+                default = (
+                    f" DEFAULT {col['default']}" if col.get('default') else ''
+                )
+                result += (
+                    f'  - {col["name"]}: {col["type"]}{nullable}{default}\n'
+                )
 
             if foreign_keys:
                 result += '\nCHAVES ESTRANGEIRAS:\n'
@@ -69,7 +73,9 @@ def db_schema_inspector(table_name: str = None) -> str:
                     for col in columns[:5]:
                         result += f'    {col["name"]} ({col["type"]})\n'
                     if len(columns) > 5:
-                        result += f'    ... e mais {len(columns) - 5} colunas\n'
+                        result += (
+                            f'    ... e mais {len(columns) - 5} colunas\n'
+                        )
                     result += '\n'
 
             return result

@@ -172,7 +172,7 @@ class RAGService:
             enriched_texts = []
             enriched_metadatas = []
 
-            logger.info(f"Processando {len(df)} registros do CSV: {csv_path}")
+            logger.info(f'Processando {len(df)} registros do CSV: {csv_path}')
 
             for idx, row in df.iterrows():
                 try:
@@ -205,26 +205,26 @@ esta tinta Suvinil:
                     enriched_texts.append(combined_text)
                     enriched_metadatas.append(
                         {
-                            "source": csv_path,
-                            "row_index": idx,
-                            "product_name": row.get("nome", f"produto_{idx}"),
-                            "enriched": True,
+                            'source': csv_path,
+                            'row_index': idx,
+                            'product_name': row.get('nome', f'produto_{idx}'),
+                            'enriched': True,
                         }
                     )
 
-                    logger.debug(f"Processado produto {idx + 1}/{len(df)}")
+                    logger.debug(f'Processado produto {idx + 1}/{len(df)}')
 
                 except Exception as e:
-                    logger.error(f"Erro ao processar linha {idx}: {str(e)}")
+                    logger.error(f'Erro ao processar linha {idx}: {str(e)}')
                     # Adicionar dados originais mesmo sem enriquecimento
                     enriched_texts.append(str(row.to_dict()))
                     enriched_metadatas.append(
                         {
-                            "source": csv_path,
-                            "row_index": idx,
-                            "product_name": row.get("nome", f"produto_{idx}"),
-                            "enriched": False,
-                            "error": str(e),
+                            'source': csv_path,
+                            'row_index': idx,
+                            'product_name': row.get('nome', f'produto_{idx}'),
+                            'enriched': False,
+                            'error': str(e),
                         }
                     )
 
@@ -232,12 +232,12 @@ esta tinta Suvinil:
             self.add_documents(enriched_texts, enriched_metadatas)
 
             logger.info(
-                f"Carregamento concluído: {len(enriched_texts)} documentos adicionados"
+                f'Carregamento concluído: {len(enriched_texts)} documentos adicionados'
             )
 
         except Exception as e:
             logger.error(
-                f"Erro ao carregar e enriquecer dados do CSV {csv_path}: {str(e)}",
+                f'Erro ao carregar e enriquecer dados do CSV {csv_path}: {str(e)}',
                 exc_info=True,
             )
             raise

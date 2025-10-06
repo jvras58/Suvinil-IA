@@ -10,9 +10,7 @@ from apps.core.api.authentication.controller import get_current_user
 from apps.core.api.authorization.controller import validate_transaction_access
 from apps.core.api.paint.controller import PaintController
 from apps.core.api.paint.schema import PaintList, PaintPublic, PaintSchema
-from apps.core.api.transaction.enum_operation_code import (
-    EnumOperationCode as op,
-)
+from apps.core.api.transaction.enum_operation_code import EnumOperationCode as op
 from apps.core.database.session import get_session
 from apps.core.models.paint import Paint
 from apps.core.models.user import User

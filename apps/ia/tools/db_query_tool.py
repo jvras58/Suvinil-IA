@@ -52,6 +52,32 @@ def db_query_tool(query: str) -> str:
 
 def _validate_query(query: str, inspector) -> str:
     """Valida a query antes da execução e fornece sugestões."""
+    # Mapeamento de aliases comuns para nomes reais de tabelas
+    table_aliases = {
+        "tintas": "paint",
+        "tinta": "paint",
+        "tintas_suvinil": "paint",
+        "suvinil": "paint",
+        "paints": "paint",
+        "usuarios": "user",
+        "usuario": "user",
+        "users": "user",
+        "roles": "role",
+        "funcoes": "role",
+        "autorizacoes": "authorization",
+        "autorizacao": "authorization",
+        "transacoes": "transaction",
+        "transacao": "transaction",
+        "conversas": "ia_conversations",
+        "conversa": "ia_conversations",
+        "mensagens": "ia_messages",
+        "mensagem": "ia_messages",
+        "documentos": "ia_documents",
+        "documento": "ia_documents",
+        "atribuicoes": "assignment",
+        "atribuicao": "assignment",
+    }
+
     table_pattern = (
         r'\bFROM\s+(\w+)|\bJOIN\s+(\w+)|\bINTO\s+(\w+)|\bUPDATE\s+(\w+)'
     )
@@ -67,6 +93,22 @@ def _validate_query(query: str, inspector) -> str:
     existing_tables = inspector.get_table_names()
 
     for table in referenced_tables:
+        # Aplicar mapeamento de alias se existir
+        corrected_table = table_aliases.get(table.lower(), table)
+        if corrected_table != table:
+            # Substituir na query e sugerir a correção
+            query_corrected = re.sub(
+                r"\b" + re.escape(table) + r"\b",
+                corrected_table,
+                query,
+                flags=re.IGNORECASE,
+            )
+            return (
+                f'Tabela "{table}" não encontrada. '
+                f'Use "{corrected_table}" em vez de "{table}". '
+                f"Query sugerida: {query_corrected}"
+            )
+
         if table not in existing_tables:
             suggestions = _suggest_similar_tables(table, existing_tables)
             return f'Tabela "{table}" não encontrada. {suggestions}'

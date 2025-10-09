@@ -54,28 +54,28 @@ def _validate_query(query: str, inspector) -> str:
     """Valida a query antes da execução e fornece sugestões."""
     # Mapeamento de aliases comuns para nomes reais de tabelas
     table_aliases = {
-        "tintas": "paint",
-        "tinta": "paint",
-        "tintas_suvinil": "paint",
-        "suvinil": "paint",
-        "paints": "paint",
-        "usuarios": "user",
-        "usuario": "user",
-        "users": "user",
-        "roles": "role",
-        "funcoes": "role",
-        "autorizacoes": "authorization",
-        "autorizacao": "authorization",
-        "transacoes": "transaction",
-        "transacao": "transaction",
-        "conversas": "ia_conversations",
-        "conversa": "ia_conversations",
-        "mensagens": "ia_messages",
-        "mensagem": "ia_messages",
-        "documentos": "ia_documents",
-        "documento": "ia_documents",
-        "atribuicoes": "assignment",
-        "atribuicao": "assignment",
+        'tintas': 'paint',
+        'tinta': 'paint',
+        'tintas_suvinil': 'paint',
+        'suvinil': 'paint',
+        'paints': 'paint',
+        'usuarios': 'user',
+        'usuario': 'user',
+        'users': 'user',
+        'roles': 'role',
+        'funcoes': 'role',
+        'autorizacoes': 'authorization',
+        'autorizacao': 'authorization',
+        'transacoes': 'transaction',
+        'transacao': 'transaction',
+        'conversas': 'ia_conversations',
+        'conversa': 'ia_conversations',
+        'mensagens': 'ia_messages',
+        'mensagem': 'ia_messages',
+        'documentos': 'ia_documents',
+        'documento': 'ia_documents',
+        'atribuicoes': 'assignment',
+        'atribuicao': 'assignment',
     }
 
     table_pattern = (
@@ -98,7 +98,7 @@ def _validate_query(query: str, inspector) -> str:
         if corrected_table != table:
             # Substituir na query e sugerir a correção
             query_corrected = re.sub(
-                r"\b" + re.escape(table) + r"\b",
+                r'\b' + re.escape(table) + r'\b',
                 corrected_table,
                 query,
                 flags=re.IGNORECASE,
@@ -106,7 +106,7 @@ def _validate_query(query: str, inspector) -> str:
             return (
                 f'Tabela "{table}" não encontrada. '
                 f'Use "{corrected_table}" em vez de "{table}". '
-                f"Query sugerida: {query_corrected}"
+                f'Query sugerida: {query_corrected}'
             )
 
         if table not in existing_tables:

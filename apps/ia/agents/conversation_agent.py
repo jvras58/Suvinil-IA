@@ -3,14 +3,18 @@
 from crewai import Agent, Crew, Process, Task
 
 from apps.ia.services.rag_service import RAGService
-from apps.ia.utils.prompts.prompt_builder import build_agent_prompt_conversation_agent
+from apps.ia.utils.prompts.prompt_builder import (
+    build_agent_prompt_conversation_agent,
+)
 from apps.packpage.llm import get_llm
 
 
 class ConversationAgent:
     """Agente de conversa otimizado, com prompt gerenciado externamente."""
 
-    def __init__(self, rag_service: RAGService = None, prompt_path: str = None):
+    def __init__(
+        self, rag_service: RAGService = None, prompt_path: str = None
+    ):
         self.rag_service = rag_service or RAGService()
         self.llm = get_llm()
         self.prompt = build_agent_prompt_conversation_agent(prompt_path)
@@ -19,13 +23,15 @@ class ConversationAgent:
         """Cria o agente de conversa usando o prompt já processado."""
         return Agent(
             role=self.prompt.get(
-                "role", "Agente de Conversa especialista em tintas Suvinil"
+                'role', 'Agente de Conversa especialista em tintas Suvinil'
             ),
             goal=self.prompt.get(
-                "objective", "Interpretar intenções e responder naturalmente em PT-BR"
+                'objective',
+                'Interpretar intenções e responder naturalmente em PT-BR',
             ),
             backstory=self.prompt.get(
-                "backstory", "Especialista em tintas Suvinil com contexto mantido."
+                'backstory',
+                'Especialista em tintas Suvinil com contexto mantido.',
             ),
             # tools=[rag_search_tool, db_query_tool],
             tools=[],

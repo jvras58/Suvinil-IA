@@ -11,19 +11,19 @@ def build_agent_prompt_conversation_agent(prompt_path: str = None) -> dict:
     if prompt_path is None:
         prompt_path = os.path.join(
             os.path.dirname(__file__),
-            "conversation_agent_prompt.yaml",
+            'conversation_agent_prompt.yaml',
         )
     prompt = load_agent_prompt(prompt_path)
 
     backstory_base = prompt.get(
-        "backstory", "Especialista em tintas Suvinil com contexto mantido."
+        'backstory', 'Especialista em tintas Suvinil com contexto mantido.'
     )
-    examples = prompt.get("examples", [])
+    examples = prompt.get('examples', [])
     if examples:
-        backstory_base += "\n\nExemplos de respostas:\n"
+        backstory_base += '\n\nExemplos de respostas:\n'
         for ex in examples:
             backstory_base += (
                 f"- Pergunta: {ex['question']}\n  Resposta: {ex['answer']}\n"
             )
-    prompt["backstory"] = backstory_base
+    prompt['backstory'] = backstory_base
     return prompt

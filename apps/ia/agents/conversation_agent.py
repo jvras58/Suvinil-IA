@@ -1,13 +1,10 @@
 """Conversation Agent using CrewAI with optimizations."""
 
 from crewai import Agent, Crew, Process, Task
-from langchain.memory import ConversationBufferMemory
 
 from apps.ia.services.rag_service import RAGService
 from apps.ia.utils.prompts.prompt_builder import build_agent_prompt_conversation_agent
 from apps.packpage.llm import get_llm
-
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 
 class ConversationAgent:
@@ -35,7 +32,6 @@ class ConversationAgent:
             llm=self.llm,
             verbose=False,
             max_iter=3,
-            memory=memory,
         )
 
     def process_query(self, query: str) -> str:
@@ -61,6 +57,7 @@ class ConversationAgent:
             process=Process.sequential,
             verbose=1,
             cache=True,
+            memory=True,
         )
 
         try:

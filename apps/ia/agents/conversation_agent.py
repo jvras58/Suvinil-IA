@@ -7,8 +7,6 @@ from langchain.memory import ConversationBufferMemory
 
 from apps.ia.agents.utils_yaml import load_agent_prompt
 from apps.ia.services.rag_service import RAGService
-from apps.ia.tools.db_query_tool import db_query_tool
-from apps.ia.tools.rag_search_tool import rag_search_tool
 from apps.packpage.llm import get_llm
 
 memory = ConversationBufferMemory(
@@ -40,7 +38,8 @@ class ConversationAgent:
             backstory=self.prompt.get(
                 "backstory", "Especialista em tintas Suvinil com contexto mantido."
             ),
-            tools=[rag_search_tool, db_query_tool],
+            # tools=[rag_search_tool, db_query_tool],
+            tools=[],
             llm=self.llm,
             verbose=False,
             max_iter=3,

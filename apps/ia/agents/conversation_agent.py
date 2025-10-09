@@ -1,50 +1,25 @@
 """Conversation Agent using CrewAI with optimizations."""
 
-import os
-
 from crewai import Agent, Crew, Process, Task
 from langchain.memory import ConversationBufferMemory
 
 from apps.ia.services.rag_service import RAGService
-from apps.ia.utils.load_yaml import load_agent_prompt
+from apps.ia.utils.prompts.prompt_builder import build_agent_prompt_conversation_agent
 from apps.packpage.llm import get_llm
 
-memory = ConversationBufferMemory(
-    memory_key='chat_history', return_messages=True
-)
-
+memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 
 class ConversationAgent:
-    """Agente de conversa otimizado, agora com prompt carregado via YAML."""
+    """Agente de conversa otimizado, com prompt gerenciado externamente."""
 
     def __init__(self, rag_service: RAGService = None, prompt_path: str = None):
         self.rag_service = rag_service or RAGService()
         self.llm = get_llm()
-        if prompt_path is None:
-            prompt_path = os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "utils",
-                "prompts",
-                "conversation_agent_prompt.yaml",
-            )
-        self.prompt_path = prompt_path
-        self.prompt = load_agent_prompt(self.prompt_path)
+        self.prompt = build_agent_prompt_conversation_agent(prompt_path)
 
     def create_conversation_agent(self) -> Agent:
-        """Cria o agente de conversa usando o prompt do YAML."""
-        backstory_base = self.prompt.get(
-            "backstory", "Especialista em tintas Suvinil com contexto mantido."
-        )
-        examples = self.prompt.get("examples", [])
-        if examples:
-            backstory_base += "\n\nExemplos de respostas:\n"
-            for ex in examples:
-                backstory_base += (
-                    f"- Pergunta: {ex['question']}\n  Resposta: {ex['answer']}\n"
-                )
-
+        """Cria o agente de conversa usando o prompt já processado."""
         return Agent(
             role=self.prompt.get(
                 "role", "Agente de Conversa especialista em tintas Suvinil"
@@ -52,7 +27,9 @@ class ConversationAgent:
             goal=self.prompt.get(
                 "objective", "Interpretar intenções e responder naturalmente em PT-BR"
             ),
-            backstory=backstory_base,
+            backstory=self.prompt.get(
+                "backstory", "Especialista em tintas Suvinil com contexto mantido."
+            ),
             # tools=[rag_search_tool, db_query_tool],
             tools=[],
             llm=self.llm,

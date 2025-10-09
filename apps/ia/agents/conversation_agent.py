@@ -1,8 +1,11 @@
 """Conversation Agent using CrewAI with optimizations."""
 
+import os
+
 from crewai import Agent, Crew, Process, Task
 from langchain.memory import ConversationBufferMemory
 
+from apps.ia.agents.utils_yaml import load_agent_prompt
 from apps.ia.services.rag_service import RAGService
 from apps.ia.tools.db_query_tool import db_query_tool
 from apps.ia.tools.rag_search_tool import rag_search_tool
@@ -13,19 +16,30 @@ memory = ConversationBufferMemory(
 )
 
 
-class ConversationAgent:
-    """Optimized Agent for conversations with RAG and DB support."""
 
-    def __init__(self, rag_service: RAGService = None):
+class ConversationAgent:
+    """Agente de conversa otimizado, agora com prompt carregado via YAML."""
+
+    def __init__(self, rag_service: RAGService = None, prompt_path: str = None):
         self.rag_service = rag_service or RAGService()
         self.llm = get_llm()
+        self.prompt_path = prompt_path or os.path.join(
+            os.path.dirname(__file__), "conversation_agent_prompt.yaml"
+        )
+        self.prompt = load_agent_prompt(self.prompt_path)
 
     def create_conversation_agent(self) -> Agent:
-        """Create a single optimized conversation agent."""
+        """Cria o agente de conversa usando o prompt do YAML."""
         return Agent(
-            role='Agente de Conversa especialista em tintas Suvinil',
-            goal='Interpretar intenções e responder naturalmente em PT-BR',
-            backstory='Especialista em tintas Suvinil com contexto mantido.',
+            role=self.prompt.get(
+                "role", "Agente de Conversa especialista em tintas Suvinil"
+            ),
+            goal=self.prompt.get(
+                "objective", "Interpretar intenções e responder naturalmente em PT-BR"
+            ),
+            backstory=self.prompt.get(
+                "backstory", "Especialista em tintas Suvinil com contexto mantido."
+            ),
             tools=[rag_search_tool, db_query_tool],
             llm=self.llm,
             verbose=False,

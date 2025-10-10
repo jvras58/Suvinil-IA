@@ -1,36 +1,43 @@
 """Conversation Agent using CrewAI with optimizations."""
 
 from crewai import Agent, Crew, Process, Task
-from langchain.memory import ConversationBufferMemory
 
 from apps.ia.services.rag_service import RAGService
-from apps.ia.tools.db_query_tool import db_query_tool
-from apps.ia.tools.rag_search_tool import rag_search_tool
-from apps.packpage.llm import get_llm
-
-memory = ConversationBufferMemory(
-    memory_key='chat_history', return_messages=True
+from apps.ia.utils.prompts.prompt_builder import (
+    build_agent_prompt_conversation_agent,
 )
+from apps.packpage.llm import get_llm
 
 
 class ConversationAgent:
-    """Optimized Agent for conversations with RAG and DB support."""
+    """Agente de conversa otimizado, com prompt gerenciado externamente."""
 
-    def __init__(self, rag_service: RAGService = None):
+    def __init__(
+        self, rag_service: RAGService = None, prompt_path: str = None
+    ):
         self.rag_service = rag_service or RAGService()
         self.llm = get_llm()
+        self.prompt = build_agent_prompt_conversation_agent(prompt_path)
 
     def create_conversation_agent(self) -> Agent:
-        """Create a single optimized conversation agent."""
+        """Cria o agente de conversa usando o prompt já processado."""
         return Agent(
-            role='Agente de Conversa especialista em tintas Suvinil',
-            goal='Interpretar intenções e responder naturalmente em PT-BR',
-            backstory='Especialista em tintas Suvinil com contexto mantido.',
-            tools=[rag_search_tool, db_query_tool],
+            role=self.prompt.get(
+                'role', 'Agente de Conversa especialista em tintas Suvinil'
+            ),
+            goal=self.prompt.get(
+                'objective',
+                'Interpretar intenções e responder naturalmente em PT-BR',
+            ),
+            backstory=self.prompt.get(
+                'backstory',
+                'Especialista em tintas Suvinil com contexto mantido.',
+            ),
+            # tools=[rag_search_tool, db_query_tool],
+            tools=[],
             llm=self.llm,
             verbose=False,
             max_iter=3,
-            memory=memory,
         )
 
     def process_query(self, query: str) -> str:
@@ -56,6 +63,7 @@ class ConversationAgent:
             process=Process.sequential,
             verbose=1,
             cache=True,
+            memory=True,
         )
 
         try:

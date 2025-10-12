@@ -23,20 +23,20 @@ class ConversationAgent:
         """Cria o agente de conversa usando o prompt já processado."""
         return Agent(
             role=self.prompt.get(
-                'role', 'Agente de Conversa especialista em tintas Suvinil'
+                "role", "Agente de Conversa especialista em tintas Suvinil"
             ),
             goal=self.prompt.get(
-                'objective',
-                'Interpretar intenções e responder naturalmente em PT-BR',
+                "objective",
+                "Interpretar intenções e responder naturalmente em PT-BR",
             ),
             backstory=self.prompt.get(
-                'backstory',
-                'Especialista em tintas Suvinil com contexto mantido.',
+                "backstory",
+                "Especialista em tintas Suvinil com contexto mantido.",
             ),
             # tools=[rag_search_tool, db_query_tool],
             tools=[],
             llm=self.llm,
-            verbose=False,
+            verbose=True,
             max_iter=3,
         )
 
